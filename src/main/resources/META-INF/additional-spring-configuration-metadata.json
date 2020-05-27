@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "gateway.task.uri",
+      "type": "java.lang.String",
+      "description": "Description for gateway.task.uri."
+    },
+    {
+      "name": "gateway.auth.uri",
+      "type": "java.lang.String",
+      "description": "Description for gateway.auth.uri."
+    }
+  ] }
