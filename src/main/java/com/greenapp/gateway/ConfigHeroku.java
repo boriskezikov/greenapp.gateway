@@ -17,4 +17,5 @@ public class ConfigHeroku implements WebServerFactoryCustomizer<NettyReactiveWeb
         factory.addServerCustomizers(server ->
                 server.httpRequestDecoder(decoder -> decoder.maxHeaderSize(MAX_HEADER_SIZE)));
     }
+
 }
