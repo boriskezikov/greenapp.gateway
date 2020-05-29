@@ -37,8 +37,6 @@ public class CloudConfig {
 
     private final AuthUtilsService service;
 
-    private final RestTemplate restTemplate;
-
     private static final Logger LOG = Logger.getLogger(CloudConfig.class.getName());
 
     @Bean
@@ -69,6 +67,7 @@ public class CloudConfig {
         headers.set("X-GREEN-APP-ID","GREEN");
         HttpEntity httpEntity = new HttpEntity(headers);
         var url = "https://greenapp-auth-service.herokuapp.com/auth/sign/test";
+        RestTemplate  restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(
                 url,
                 HttpMethod.GET,
