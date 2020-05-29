@@ -11,7 +11,12 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.cloud.gateway.route.builder.UriSpec;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -31,6 +36,8 @@ public class CloudConfig {
     private String TASK_PROVIDER_URL;
 
     private final AuthUtilsService service;
+
+    private final RestTemplate restTemplate;
 
     private static final Logger LOG = Logger.getLogger(CloudConfig.class.getName());
 
@@ -58,7 +65,17 @@ public class CloudConfig {
     }
 
     private Mono<Void> addHeaders(ServerWebExchange exchange, GatewayFilterChain chain) {
-
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-GREEN-APP-ID","GREEN");
+        HttpEntity httpEntity = new HttpEntity(headers);
+        var url = "https://greenapp-auth-service.herokuapp.com/auth/sign/test";
+        ResponseEntity<String> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                httpEntity,
+                String.class,
+                1
+        );
         ServerHttpRequest request = exchange.getRequest().mutate()
                 .header("X-GREEN-APP-ID", "GREEN")
                 .build();
