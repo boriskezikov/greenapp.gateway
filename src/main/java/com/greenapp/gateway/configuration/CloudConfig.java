@@ -36,6 +36,9 @@ public class CloudConfig {
 
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
+        System.out.println("________________________________________________________________________________________________________________________");
+        System.out.println("URLS TO REDIRECT: " + AUTH_URL);
+        System.out.println("________________________________________________________________________________________________________________________");
         return builder.routes()
                 .route(r -> r
                         .path("/auth/**")
