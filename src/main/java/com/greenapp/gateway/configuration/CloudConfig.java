@@ -63,20 +63,9 @@ public class CloudConfig {
     }
 
     private Mono<Void> addHeaders(ServerWebExchange exchange, GatewayFilterChain chain) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-GREEN-APP-ID","GREEN");
-        HttpEntity httpEntity = new HttpEntity(headers);
-        var url = "https://greenapp-auth-service.herokuapp.com/auth/sign/test";
-        RestTemplate  restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                httpEntity,
-                String.class,
-                1
-        );
         ServerHttpRequest request = exchange.getRequest().mutate()
                 .header("X-GREEN-APP-ID", "GREEN")
+                .header(HttpHeaders.CONNECTION, "keep-alive")
                 .build();
         if (service.validateAuthentication(exchange)) {
             LOG.info(">> Authenticated: " + service.generateBasicAuth());
