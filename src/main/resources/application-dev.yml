@@ -1,0 +1,25 @@
+zuul:
+  routes:
+    auth:
+      path: /auth/**
+      url: http://localhost:8080/auth
+    task:
+      path: /task-provider/**
+      url: https://greenapp-task-provider.herokuapp.com/
+
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+
+ribbon:
+  eureka:
+    enabled: false
+
+username: artem
+password: pidor
+
+server:
+  port: 8999

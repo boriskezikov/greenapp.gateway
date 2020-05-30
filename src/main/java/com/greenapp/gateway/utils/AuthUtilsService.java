@@ -1,15 +1,19 @@
 package com.greenapp.gateway.utils;
 
-import org.apache.commons.codec.binary.Base64;
+import lombok.NoArgsConstructor;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ServerWebExchange;
 
-import java.util.Arrays;
-import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 @Service
+@NoArgsConstructor
 public class AuthUtilsService {
 
     @Value("${username}")
@@ -19,19 +23,26 @@ public class AuthUtilsService {
     private String password;
 
 
-    public boolean validateAuthentication(ServerWebExchange serverWebExchange) {
-        var authHeader = Objects.requireNonNull(serverWebExchange.getRequest()
-                .getHeaders()
-                .get(HttpHeaders.AUTHORIZATION))
-                .stream()
-                .findAny();
-
-        return authHeader.isPresent() && authHeader.get().equals(generateBasicAuth());
-
+    public boolean validateAuthentication(String authHeader) {
+        return authHeader.equals(generateBasicAuth());
 
     }
 
     public String generateBasicAuth() {
         return "Basic " + new String(Base64.encodeBase64((user + ":" + password).getBytes()));
     }
+
+    public Map<String,String> parseHeaders(Enumeration<String> headersNames, HttpServletRequest httpRequest) {
+
+        Map<String,String> headers = new HashMap<>();
+
+        if (headersNames != null) {
+            while (headersNames.hasMoreElements()) {
+                var next = headersNames.nextElement();
+                headers.put(next, httpRequest.getHeader(next));
+            }
+        }
+        return headers;
+    }
 }
+

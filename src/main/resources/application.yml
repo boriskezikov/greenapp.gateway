@@ -1,0 +1,17 @@
+zuul:
+  routes:
+    auth:
+      path: /auth/**
+      url: https://greenapp-auth-service.herokuapp.com/auth
+    task:
+      path: /task-provider/**
+      url: https://greenapp-task-provider.herokuapp.com/task-provider
+
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+username: artem
+password: pidor
