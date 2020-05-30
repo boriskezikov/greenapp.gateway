@@ -18,8 +18,8 @@ ribbon:
   eureka:
     enabled: false
 
-username: artem
-password: pidor
+username: greenuser
+password: greenpassword
 
 server:
   port: 8999
