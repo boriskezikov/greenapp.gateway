@@ -43,6 +43,7 @@ public class SpringCloudFilter extends ZuulFilter {
         return true;
     }
 
+    //todo try to use spring security instead
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();

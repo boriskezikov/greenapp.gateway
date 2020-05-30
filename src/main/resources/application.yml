@@ -13,5 +13,5 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
 
-username: artem
-password: pidor
+username: greenuser
+password: greenpassword
