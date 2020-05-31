@@ -6,12 +6,19 @@ zuul:
     task:
       path: /task-provider/**
       url: https://greenapp-task-provider.herokuapp.com/task-provider
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+    semaphore:
+      max-semaphores: 500
+    sensitive-headers: true
 
 
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+
 
 username: greenuser
 password: greenpassword
