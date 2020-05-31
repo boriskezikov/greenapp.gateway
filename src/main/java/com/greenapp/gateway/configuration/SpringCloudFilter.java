@@ -1,6 +1,7 @@
 package com.greenapp.gateway.configuration;
 
-import com.greenapp.gateway.utils.AuthUtilsService;
+import com.greenapp.gateway.services.AuthService;
+import com.greenapp.gateway.services.AuthUtilsService;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class SpringCloudFilter extends ZuulFilter {
 
     private final AuthUtilsService service;
+    private final AuthService authService;
 
     @Value("${zuul.routes.auth.url}")
     private String AUTH_URL;
@@ -53,11 +55,11 @@ public class SpringCloudFilter extends ZuulFilter {
 
         var authHeader = Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        if (authHeader.isPresent() && service.validateAuthentication(authHeader.get())) {
+        if ((authHeader.isPresent() && service.validateAuthentication(authHeader.get()) ) || authService.authenticate(authHeader.get())) {
             LOG.info(">> Authenticated: " + service.generateBasicAuth());
             LOG.info("-------------------------------------------------------------------------------------------");
-            LOG.info(String.format(">> Begin request: %s: %s",request.getMethod(), request.getRequestURI()));
-            LOG.info(String.format(">> Headers: %s", service.parseHeaders(request.getHeaderNames(),request)));
+            LOG.info(String.format(">> Begin request: %s: %s", request.getMethod(), request.getRequestURI()));
+            LOG.info(String.format(">> Headers: %s", service.parseHeaders(request.getHeaderNames(), request)));
 
             if (request.getRequestURI().contains("auth")) {
                 LOG.warn(String.format(">> Redirecting to : %s", AUTH_URL));

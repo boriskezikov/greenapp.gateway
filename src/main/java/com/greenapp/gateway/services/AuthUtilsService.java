@@ -1,4 +1,4 @@
-package com.greenapp.gateway.utils;
+package com.greenapp.gateway.services;
 
 import lombok.NoArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
