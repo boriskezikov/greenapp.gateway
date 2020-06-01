@@ -15,25 +15,9 @@ import java.util.Map;
 @NoArgsConstructor
 public class AuthUtilsService {
 
-    @Value("${username}")
-    private String user;
+    public Map<String, String> parseHeaders(Enumeration<String> headersNames, HttpServletRequest httpRequest) {
 
-    @Value("${password}")
-    private String password;
-
-
-    public boolean validateAuthentication(String authHeader) {
-        return authHeader.equals(generateBasicAuth());
-
-    }
-
-    public String generateBasicAuth() {
-        return "Basic " + new String(Base64.encodeBase64((user + ":" + password).getBytes()));
-    }
-
-    public Map<String,String> parseHeaders(Enumeration<String> headersNames, HttpServletRequest httpRequest) {
-
-        Map<String,String> headers = new HashMap<>();
+        Map<String, String> headers = new HashMap<>();
 
         if (headersNames != null) {
             while (headersNames.hasMoreElements()) {

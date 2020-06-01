@@ -13,7 +13,8 @@ zuul:
       max-semaphores: 500
     sensitive-headers: true
 
-
+jwt:
+  secret: javainuse
 eureka:
   client:
     register-with-eureka: false
