@@ -28,8 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final String[] exclude = new String[]{
             "/authenticate",
             "/auth/sign/up",
-            "/auth/sign/verify2fa",
-            "/auth/sign/resend2fa",
+            "/auth/verify2fa",
+            "/auth/resend2fa",
+            "/auth/clear",
             "/live"
     };
 

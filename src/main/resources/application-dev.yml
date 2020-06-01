@@ -14,7 +14,7 @@ zuul:
     sensitive-headers: true
 
 jwt:
-  secret: javainuse
+  secret: ortam
 eureka:
   client:
     register-with-eureka: false
