@@ -5,7 +5,7 @@ zuul:
       url: https://greenapp-auth-service.herokuapp.com/auth
     task:
       path: /task-provider/**
-      url: https://greenapp-task-provider.herokuapp.com/task-provider
+      url: https://greenapp-task-provider.herokuapp.com/
   host:
     socket-timeout-millis: 60000
     connect-timeout-millis: 60000
@@ -21,5 +21,17 @@ eureka:
     fetch-registry: false
 
 
-username: greenuser
-password: greenpassword
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+ribbon:
+  eureka:
+    enabled: false
+
+
+server:
+  port: 8999

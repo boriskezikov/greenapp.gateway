@@ -32,8 +32,6 @@ ribbon:
   eureka:
     enabled: false
 
-username: greenuser
-password: greenpassword
 
 server:
   port: 8999
