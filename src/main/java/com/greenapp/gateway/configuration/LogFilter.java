@@ -52,9 +52,10 @@ public class LogFilter extends ZuulFilter {
         LOG.info(String.format(">> Begin request: %s: %s", request.getMethod(), request.getRequestURI()));
         LOG.info(String.format(">> Headers: %s", service.parseHeaders(request.getHeaderNames(), request)));
 
-        if (request.getRequestURI().contains("auth")) {
+        var URI = request.getRequestURI();
+        if (URI.contains("auth")) {
             LOG.warn(String.format(">> Redirecting to : %s", AUTH_URL));
-        } else if (request.getRequestURI().contains("task-provider")) {
+        } else if (URI.contains("task-provider")) {
             LOG.warn(String.format(">> Redirecting to : %s", TASK_PROVIDER_URL));
         }
         LOG.info(String.format(">> End request: %s", request.getMethod()));

@@ -39,15 +39,15 @@ public class AuthService {
                 UserInfo.class);
         return response.getBody();
     }
-    @Scheduled(cron = "* */15 * * * *")
-    public void keepMailAlivePlease() {
-
-        restTemplate.exchange(
-                "https://greenapp-mail-service.herokuapp.com/leave",
-                HttpMethod.GET,
-                null,
-                Void.class
-        );
-        System.out.println("Sent live");
-    }
+//    @Scheduled(cron = "* */15 * * * *")
+//    public void keepMailAlivePlease() {
+//
+//        restTemplate.exchange(
+//                "https://greenapp-mail-service.herokuapp.com/leave",
+//                HttpMethod.GET,
+//                null,
+//                Void.class
+//        );
+//        System.out.println("Sent live");
+//    }
 }
