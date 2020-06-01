@@ -5,7 +5,7 @@ zuul:
       url: https://greenapp-auth-service.herokuapp.com/auth
     task:
       path: /task-provider/**
-      url: https://greenapp-task-provider.herokuapp.com/
+      url: https://greenapp-task-provider.herokuapp.com/task-provider
   host:
     socket-timeout-millis: 60000
     connect-timeout-millis: 60000
