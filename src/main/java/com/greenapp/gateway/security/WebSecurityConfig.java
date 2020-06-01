@@ -29,7 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/authenticate",
             "/auth/sign/up",
             "/auth/sign/verify2fa",
-            "/auth/sign/resend2fa"
+            "/auth/sign/resend2fa",
+            "/live"
     };
 
     @Autowired

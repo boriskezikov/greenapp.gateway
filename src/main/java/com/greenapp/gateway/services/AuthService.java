@@ -39,7 +39,7 @@ public class AuthService {
                 UserInfo.class);
         return response.getBody();
     }
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "* */15 * * * *")
     public void keepMailAlivePlease() {
 
         restTemplate.exchange(
@@ -48,6 +48,6 @@ public class AuthService {
                 null,
                 Void.class
         );
-        System.out.println("Sent alive");
+        System.out.println("Sent live");
     }
 }
