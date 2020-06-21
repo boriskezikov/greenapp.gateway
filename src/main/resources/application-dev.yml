@@ -2,7 +2,7 @@ zuul:
   routes:
     auth:
       path: /auth/**
-      url: http://localhost:8080/auth
+      url: http://localhost:8081/auth
     task:
       path: /task-provider/**
       url: https://greenapp-task-provider.herokuapp.com/
@@ -14,7 +14,7 @@ zuul:
     sensitive-headers: true
 
 jwt:
-  secret: ortam
+  secret: greenapp
 eureka:
   client:
     register-with-eureka: false
