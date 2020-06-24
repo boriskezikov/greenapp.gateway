@@ -6,6 +6,13 @@ zuul:
     task:
       path: /task-provider/**
       url: https://greenapp-task-provider.herokuapp.com/task-provider
+    shop:
+      path: /shop/**
+      url: https://greenapp-shop.herokuapp.com/shop
+    client:
+      path: /client-provider/**
+      url: https://greenapp-shop.herokuapp.com/client-provider
+
   host:
     socket-timeout-millis: 60000
     connect-timeout-millis: 60000
