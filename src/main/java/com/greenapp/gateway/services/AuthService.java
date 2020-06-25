@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static com.greenapp.gateway.utils.Constants.AUTHENTICATION;
+import static com.greenapp.gateway.utils.Constants.CLIENT_INFO;
 
 @Service
 @RequiredArgsConstructor
@@ -23,14 +24,26 @@ public class AuthService {
 
     private final RestTemplate restTemplate;
 
-    public UserInfo authenticate(String username) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-GREEN-APP-ID", "GREEN");
 
+    public Long getClient(String mail){
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(AUTH_URL + CLIENT_INFO)
+                .queryParam("mail", mail);
+
+        HttpEntity<?> entity = new HttpEntity<>(provideHeaders());
+
+        ResponseEntity<Long> response = restTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.GET,
+                entity,
+                Long.class);
+        return response.getBody();
+    }
+
+    public UserInfo authenticate(String username) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(AUTH_URL + AUTHENTICATION)
                 .queryParam("mail", username);
 
-        HttpEntity<?> entity = new HttpEntity<>(headers);
+        HttpEntity<?> entity = new HttpEntity<>(provideHeaders());
 
         ResponseEntity<UserInfo> response = restTemplate.exchange(
                 builder.toUriString(),
@@ -50,4 +63,10 @@ public class AuthService {
 //        );
 //        System.out.println("Sent live");
 //    }
+
+    private HttpHeaders provideHeaders(){
+        var headers = new HttpHeaders();
+        headers.set("X-GREEN-APP-ID", "GREEN");
+        return headers;
+    }
 }
