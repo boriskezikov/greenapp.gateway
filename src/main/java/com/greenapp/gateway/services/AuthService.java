@@ -1,6 +1,8 @@
 package com.greenapp.gateway.services;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,19 +25,24 @@ public class AuthService {
     private String AUTH_URL;
 
     private final RestTemplate restTemplate;
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class.getName());
 
 
     public Long getClient(String mail){
+
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(AUTH_URL + CLIENT_INFO)
                 .queryParam("mail", mail);
 
         HttpEntity<?> entity = new HttpEntity<>(provideHeaders());
-
+        log.warn("___________________________________________" );
+        log.warn("Sending request to get client id" );
+        log.warn("___________________________________________" );
         ResponseEntity<Long> response = restTemplate.exchange(
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
                 Long.class);
+        log.warn("Response: " + response.getBody());
         return response.getBody();
     }
 
