@@ -34,15 +34,13 @@ public class AuthService {
                 .queryParam("mail", mail);
 
         HttpEntity<?> entity = new HttpEntity<>(provideHeaders());
-        log.warn("___________________________________________" );
-        log.warn("Sending request to get client id" );
-        log.warn("___________________________________________" );
+        log.warn("Beginning request to get client id: " + entity);
         ResponseEntity<Long> response = restTemplate.exchange(
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
                 Long.class);
-        log.warn("Response: " + response.getBody());
+        log.warn("Found client id: " + response.getBody());
         return response.getBody();
     }
 
